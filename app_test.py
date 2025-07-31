@@ -122,3 +122,4 @@ if __name__ == "__main__":
     if query_text_input != '':
         user_input(query_text_input)
         user_input_images(query_text_input)
+        print("Query Text Input:", query_text_input)
