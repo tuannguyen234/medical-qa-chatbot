@@ -125,3 +125,4 @@ if __name__ == "__main__":
         print("Query Text Input:", query_text_input)
         hello = "Hello, World!"
         st.write(hello)
+        print("Query Text Input:", query_text_input)
