@@ -118,8 +118,22 @@ def user_input_images(query):
         # Hiển thị từng ảnh trong danh sách
         for image in list_images:
             st.image(image, caption=image, use_container_width=True)
+
 if __name__ == "__main__":
-    if query_text_input != '':
-        user_input(query_text_input)
-        user_input_images(query_text_input)
-        print(f"query_text_input: {query_text_input}")
+    try:
+        query_text_input = input("Nhập câu truy vấn: ").strip()
+
+        if query_text_input:
+            print(f"✅ Input received: {query_text_input}")
+
+            # Gọi xử lý text
+            user_input(query_text_input)
+
+            # Gọi xử lý ảnh
+            user_input_images(query_text_input)
+
+        else:
+            print("⚠️ Không có nội dung được nhập!")
+
+    except Exception as e:
+        print(f"❌ Đã xảy ra lỗi trong quá trình xử lý: {str(e)}")
