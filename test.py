@@ -86,77 +86,77 @@ if st.button("Send"):
         st.markdown(response.final_output.article_text)
     st.write(response)
     st.json(response.raw_responses)
-# import streamlit as st
-# import asyncio
-# from agents import Agent, Runner, function_tool
-# import wikipedia
+import streamlit as st
+import asyncio
+from agents import Agent, Runner, function_tool
+import wikipedia
 
-# @function_tool
-# def wikipedia_lookup(q: str) -> str:
-#     """Look up a query in Wikipedia and return the result"""
-#     return wikipedia.page(q).summary
+@function_tool
+def wikipedia_lookup(q: str) -> str:
+    """Look up a query in Wikipedia and return the result"""
+    return wikipedia.page(q).summary
 
-# research_agent = Agent(
-#     name="Research agent",
-#     instructions="""You research topics using Wikipedia and report on 
-#                     the results. """,
-#     model="gpt-4o-mini",
-#     tools=[wikipedia_lookup],
-# )
+research_agent = Agent(
+    name="Research agent",
+    instructions="""You research topics using Wikipedia and report on 
+                    the results. """,
+    model="gpt-4o-mini",
+    tools=[wikipedia_lookup],
+)
 
-# async def run_agent(input_string):
-#     result = await Runner.run(research_agent, input_string)
-#     print(f"Result: {result}")
-#     print("\n📦 Raw Responses:")
-#     for r in result.raw_responses:
-#         print(r)
-#     return result.final_output
+async def run_agent(input_string):
+    result = await Runner.run(research_agent, input_string)
+    print(f"Result: {result}")
+    print("\n📦 Raw Responses:")
+    for r in result.raw_responses:
+        print(r)
+    return result.final_output
 
-# # Streamlit UI
+# Streamlit UI
 
-# st.title("Simple Tool-using Agent")
-# st.write("This agent uses Wikipedia to look up information.")
+st.title("Simple Tool-using Agent")
+st.write("This agent uses Wikipedia to look up information.")
 
-# user_input = st.text_input("Enter a query and press 'Send':")
+user_input = st.text_input("Enter a query and press 'Send':")
 
-# st.write("Response:")
-# response_container = st.container(height=300, border=True)
+st.write("Response:")
+response_container = st.container(height=300, border=True)
 
-# if st.button("Send"):
-#     response = asyncio.run(run_agent(user_input))
-#     with response_container:
-#         st.markdown(response)
+if st.button("Send"):
+    response = asyncio.run(run_agent(user_input))
+    with response_container:
+        st.markdown(response)
 
-# st.title("Simple Agent SDK Query")
-# print("Hello World")
-# # Create the agent instance
-# agent = Agent(name="Assistant",
-#               instructions="You are a helpful assistant",
-#               model="gpt-4o-mini")
+st.title("Simple Agent SDK Query")
+print("Hello World")
+# Create the agent instance
+agent = Agent(name="Assistant",
+              instructions="You are a helpful assistant",
+              model="gpt-4o-mini")
 
-# # Input box for user query
-# user_input = st.text_input("Enter a query and press 'Send':")
+# Input box for user query
+user_input = st.text_input("Enter a query and press 'Send':")
 
-# # Container for the response
-# response_container = st.container(height=600, border=True)
-# st.write("Response:")
+# Container for the response
+response_container = st.container(height=600, border=True)
+st.write("Response:")
 
-# # Define async function to run the agent
-# async def get_agent_response(query):
-#     result = await Runner.run(agent, query)
-#     return result.final_output
+# Define async function to run the agent
+async def get_agent_response(query):
+    result = await Runner.run(agent, query)
+    return result.final_output
 
-# # Handle button click
-# if st.button("Send"):
-#     if user_input.strip():
-#         # Streamlit does not support 'await' at the top level of a script.
-#         # You cannot use 'await' outside of an async function.
-#         # To run async code in Streamlit, use asyncio.run or nest_asyncio.
-#         response = asyncio.run(get_agent_response(user_input))
-#         with response_container:
-#             st.markdown(response)
-#     else:
-#         with response_container:
-#             st.markdown("*Please enter a query above and press 'Send'.*")
-
-#streamlit run test.py --server.port 1000 --server.runOnSave true
+# Handle button click
+if st.button("Send"):
+    if user_input.strip():
+        # Streamlit does not support 'await' at the top level of a script.
+        # You cannot use 'await' outside of an async function.
+        # To run async code in Streamlit, use asyncio.run or nest_asyncio.
+        response = asyncio.run(get_agent_response(user_input))
+        with response_container:
+            st.markdown(response)
+    else:
+        with response_container:
+            st.markdown("*Please enter a query above and press 'Send'.*")
+print("a")
+# streamlit run test.py --server.port 1000 --server.runOnSave true
