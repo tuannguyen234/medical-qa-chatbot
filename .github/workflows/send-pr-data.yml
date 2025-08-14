@@ -1,0 +1,18 @@
+name: Send PR data to API
+
+on:
+  pull_request:
+    types: [opened]          # Chỉ khi PR mới tạo
+    branches:
+      - main
+      - develop
+
+jobs:
+  send-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send PR info to API
+        run: |
+          curl -X POST "${{ secrets.WEBHOOK_URL }}" \
+               -H "Content-Type: application/json" \
+               -d "{\"owner\":\"${{ github.repository_owner }}\",\"repo\":\"${{ github.event.repository.name }}\",\"pr_number\":${{ github.event.number}}}"
