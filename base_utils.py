@@ -263,6 +263,6 @@ async def process_with_overlap(req, attribute_service, POST_PROMPT, Posts):
             )
             all_dict_meta+= result['post_meta']
         except Exception as e:
-            print(f'❌ Lỗi xử lý batch: {batch}\n{e}')
+print("Production mode tuantuan")
     return {'post_meta': all_dict_meta, 'error': result['error'] , 'status': result['status']}
 print('a')
